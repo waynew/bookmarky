@@ -16,6 +16,13 @@ var BookmarkView = Backbone.View.extend({
         "change input": "field_changed",
         "change textarea": "field_changed",
         "click button": "save_bookmark",
+        "keypress textarea": "textarea_keypress",
+        'focusout input,textarea': 'save_bookmark'
+    },
+    textarea_keypress: function(e){
+        if ((e.keyCode == 10 || e.keyCode == 13) && e.ctrlKey){
+            this.save_bookmark(e);
+        }
     },
     field_changed: function(e){
         var field = $(e.currentTarget);
@@ -28,12 +35,10 @@ var BookmarkView = Backbone.View.extend({
         else {
             data[id] = field.val();
         }
-        console.log(data);
-        console.log("Field changed");
+        this.model.set(data);
     },
     save_bookmark: function(e){
-        var btn = $(e.currentTarget);
-        console.log("Save clicked");
+        this.model.save();
     },
     render: function(){
         var template = _.template($("#bookmark_template").html(), {});
@@ -45,9 +50,7 @@ var BookmarkView = Backbone.View.extend({
 $(function(){
     console.log('page loaded');
     b = new Bookmark();
-    b.set("url", "hello world");
-    b.save().success(function(){ b.destroy(); });
 
-    bv = new BookmarkView({el: $("#content")});
+    bv = new BookmarkView({el: $("#content"), model:b});
     bv.render();
 })
