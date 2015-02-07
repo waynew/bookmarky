@@ -65,7 +65,7 @@ var BookmarkView = Backbone.View.extend({
         $("#notes").val(this.model.get('notes'));
     },
     destroy: function(){
-        this.$el.hide();
+        //this.$el.hide();
     },
     render: function(arg){
         var template = _.template($("#bookmark_template").html());

@@ -62,7 +62,7 @@
     </body>
     <script type="text/template" id="bookmark_template">
         <div class="bookmark">
-            <label>URL: <a id="goto" href="<%= bookmark.url %>">Go there</a><input type="text" id="url" value="<%= bookmark.url %>" tabindex="1"/></label>
+            <label>URL: <a id="goto" href="<%= bookmark.url %>" target="_blank">Go there</a><input type="text" id="url" value="<%= bookmark.url %>" tabindex="1"/></label>
             <label>Title:<input type="text" id="title" value="<%= bookmark.title %>" tabindex="2"/></label>
             <label>Tags: <span class="unimportant">(separated by comma)</span><input type="text" id="tags" value="<%= bookmark.tags.join(',') %>" tabindex="3"/></label>
             <label>Notes:<textarea id="notes" tabindex="4"><%= bookmark.notes %></textarea></label>
@@ -71,7 +71,8 @@
     </script>
     <script type="text/template" id="bookmark_view">
         <div class="bookmark_view">
-            <%= bookmark.id %>
+            <%= bookmark.id %> -
+            <%= bookmark.title %> -
             <%= bookmark.url %>
             <button class="delete">Delete</button>
         </div>
