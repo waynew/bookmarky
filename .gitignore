@@ -54,3 +54,4 @@ docs/_build/
 target/
 
 *.sw[po]
+bookmarks.json

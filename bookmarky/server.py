@@ -1,4 +1,5 @@
 import os
+import json
 from flask import Flask, render_template, jsonify, url_for, request
 
 app = Flask(__name__)
@@ -42,17 +43,23 @@ def bookmark(id):
             app.logger.debug("Deleting id <%s> type <%s>", id, type(id))
             del mybookmarks[id]
             print("Deleted bookmark #"+str(id))
+            with open('bookmarks.json', 'w') as f:
+                json.dump(mybookmarks, f)
             return jsonify(message="Deleted bookmark #"+str(id))
         except KeyError:
             print("No bookmark with id #"+str(id))
             print(mybookmarks)
+            with open('bookmarks.json', 'w') as f:
+                json.dump(mybookmarks, f)
             return jsonify(message="No bookmark with id #"+str(id))
+    with open('bookmarks.json', 'w') as f:
+        json.dump(mybookmarks, f)
     return jsonify(data)
 
 
 @app.route("/api/v1/bookmarks")
 def bookmarks():
-    return jsonify(mybookmarks)
+    return jsonify(bookmarks=list(mybookmarks.values()))
 
 
 if __name__ == "__main__":
