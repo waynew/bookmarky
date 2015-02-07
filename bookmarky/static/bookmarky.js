@@ -87,13 +87,15 @@ var ViewBookmarkView = Backbone.View.extend({
         view.render();
     },
     destroy: function(e){
-        this.model.destroy().success(function(){
-            console.log("Destroyed");
-        }).error(function(){
-            console.log("Not destroyed");
-            console.log(data);
-        });
-        this.$el.remove();
+        if (confirm("Really delete?")){
+            this.model.destroy().success(function(){
+                console.log("Destroyed");
+            }).error(function(){
+                console.log("Not destroyed");
+                console.log(data);
+            });
+            this.$el.remove();
+        }
     },
     render: function(arg){
         var templ = _.template($("#bookmark_view").html());
